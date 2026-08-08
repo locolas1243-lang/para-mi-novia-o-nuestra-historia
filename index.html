@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Para ti Yorleidis ❤️</title>
+    <title>Para ti mi persona favorita ❤️</title>
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Caveat:wght@600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
@@ -388,6 +388,17 @@
             font-size: 1.3rem;
         }
 
+        /* REPRODUCTOR OCULTO PERO PERMITIDO POR EL NAVEGADOR */
+        .yt-hidden {
+            position: fixed;
+            bottom: -200px;
+            right: -200px;
+            width: 1px;
+            height: 1px;
+            opacity: 0.01;
+            pointer-events: none;
+        }
+
         @media (max-width: 600px) {
             header h1 { font-size: 3rem; }
             .intro-title { font-size: 2.8rem; }
@@ -402,9 +413,8 @@
     <!-- FONDO NOCTURNO ESTRELLADO -->
     <div class="stars-container" id="stars"></div>
 
-    <!-- INTRO NOCHE DE TULIPANES (PINK TULIPS NIGHT) -->
+    <!-- INTRO NOCHE DE TULIPANES -->
     <div id="intro-overlay">
-        <!-- SVG TULIPAN EN FLOR -->
         <svg class="tulip-bloom-graphic" viewBox="0 0 100 100">
             <path d="M50 85 Q50 50 50 35 M50 65 Q35 55 20 60 M50 70 Q65 60 80 65" stroke="#4a8505" stroke-width="3" fill="none" stroke-linecap="round"/>
             <path d="M50 20 C30 20 25 45 50 65 C75 45 70 20 50 20 Z" fill="#ff758c"/>
@@ -417,11 +427,10 @@
         <button class="btn-bloom" onclick="startExperience()">🌷 Entrar a nuestro lugar</button>
     </div>
 
-    <!-- REPRODUCTOR DE YOUTUBE INVISIBLE (Love Songs - https://www.youtube.com/watch?v=edvms0RSum4) -->
-    <iframe id="bg-music" style="display:none;" width="1" height="1" 
-        src="https://www.youtube.com/embed/edvms0RSum4?enablejsapi=1&autoplay=0&loop=1&playlist=edvms0RSum4" 
-        allow="autoplay">
-    </iframe>
+    <!-- CONTENEDOR DE YOUTUBE -->
+    <div class="yt-hidden">
+        <div id="youtube-player"></div>
+    </div>
 
     <button onclick="toggleMusic()" id="music-btn" style="position: fixed; top: 18px; right: 18px; z-index: 1000; padding: 10px 18px; border-radius: 30px; border: 1px solid var(--pink-light); background: rgba(0,0,0,0.5); color: var(--pink-light); cursor: pointer; font-weight: 500; backdrop-filter: blur(5px);">
         🎵 Música: Play/Pause
@@ -458,70 +467,22 @@
         <!-- GALERIA DE FOTOS -->
         <h2 class="section-title">Galería de Recuerdos 📸</h2>
         <div class="gallery">
-            <div class="photo-card">
-                <img src="foto1.jpeg" alt="Foto 1">
-                <div class="photo-caption">Cineeee ✨</div>
-            </div>
-            <div class="photo-card">
-                <img src="foto2.jpeg" alt="Foto 2">
-                <div class="photo-caption">Algo relax 💕</div>
-            </div>
-            <div class="photo-card">
-                <img src="foto3.jpeg" alt="Foto 3">
-                <div class="photo-caption">Momento divertido 😊</div>
-            </div>
-            <div class="photo-card">
-                <img src="foto4.jpeg" alt="Foto 4">
-                <div class="photo-caption">Ese día estabas bien bonita 🌸</div>
-            </div>
-            <div class="photo-card">
-                <img src="foto5.jpeg" alt="Foto 5">
-                <div class="photo-caption">Siempre juntos 💖</div>
-            </div>
-            <div class="photo-card">
-                <img src="foto6.jpeg" alt="Foto 6">
-                <div class="photo-caption">jojojojo navidad ✨</div>
-            </div>
-            <div class="photo-card">
-                <img src="foto7.jpeg" alt="Foto 7">
-                <div class="photo-caption">De las primeras fotos 😊</div>
-            </div>
-            <div class="photo-card">
-                <img src="foto8.jpeg" alt="Foto 8">
-                <div class="photo-caption">Por más fotos así 🚗</div>
-            </div>
-            <div class="photo-card">
-                <img src="foto9.jpeg" alt="Foto 9">
-                <div class="photo-caption">gente bonita foto fea 🤍</div>
-            </div>
-            <div class="photo-card">
-                <img src="foto10.jpeg" alt="Foto 10">
-                <div class="photo-caption">Una muchacha muy bonita 📸</div>
-            </div>
-            <div class="photo-card">
-                <img src="foto11.jpeg" alt="Foto 11">
-                <div class="photo-caption">Playitaa 💕</div>
-            </div>
-            <div class="photo-card">
-                <img src="foto12.jpeg" alt="Foto 12">
-                <div class="photo-caption">Cuando fuimos a Japón ☀️</div>
-            </div>
-            <div class="photo-card">
-                <img src="foto13.jpeg" alt="Foto 13">
-                <div class="photo-caption">Foto cuando regresamos de Japón 💏</div>
-            </div>
-            <div class="photo-card">
-                <img src="foto15.jpeg" alt="Foto 15">
-                <div class="photo-caption">Gente guapa 📖</div>
-            </div>
-            <div class="photo-card">
-                <img src="foto16.jpeg" alt="Foto 16">
-                <div class="photo-caption">Por más fotos juntos 🥂</div>
-            </div>
-            <div class="photo-card">
-                <img src="foto17.jpeg" alt="Foto 17">
-                <div class="photo-caption">JIJIJJII ❤️</div>
-            </div>
+            <div class="photo-card"><img src="foto1.jpeg" alt="Foto 1"><div class="photo-caption">Cineeee ✨</div></div>
+            <div class="photo-card"><img src="foto2.jpeg" alt="Foto 2"><div class="photo-caption">Algo relax 💕</div></div>
+            <div class="photo-card"><img src="foto3.jpeg" alt="Foto 3"><div class="photo-caption">Momento divertido 😊</div></div>
+            <div class="photo-card"><img src="foto4.jpeg" alt="Foto 4"><div class="photo-caption">Ese día estabas bien bonita 🌸</div></div>
+            <div class="photo-card"><img src="foto5.jpeg" alt="Foto 5"><div class="photo-caption">Siempre juntos 💖</div></div>
+            <div class="photo-card"><img src="foto6.jpeg" alt="Foto 6"><div class="photo-caption">jojojojo navidad ✨</div></div>
+            <div class="photo-card"><img src="foto7.jpeg" alt="Foto 7"><div class="photo-caption">De las primeras fotos 😊</div></div>
+            <div class="photo-card"><img src="foto8.jpeg" alt="Foto 8"><div class="photo-caption">Por más fotos así 🚗</div></div>
+            <div class="photo-card"><img src="foto9.jpeg" alt="Foto 9"><div class="photo-caption">gente bonita foto fea 🤍</div></div>
+            <div class="photo-card"><img src="foto10.jpeg" alt="Foto 10"><div class="photo-caption">Una muchacha muy bonita 📸</div></div>
+            <div class="photo-card"><img src="foto11.jpeg" alt="Foto 11"><div class="photo-caption">Playitaa 💕</div></div>
+            <div class="photo-card"><img src="foto12.jpeg" alt="Foto 12"><div class="photo-caption">Cuando fuimos a Japón ☀️</div></div>
+            <div class="photo-card"><img src="foto13.jpeg" alt="Foto 13"><div class="photo-caption">Foto cuando regresamos de Japón 💏</div></div>
+            <div class="photo-card"><img src="foto15.jpeg" alt="Foto 15"><div class="photo-caption">Gente guapa 📖</div></div>
+            <div class="photo-card"><img src="foto16.jpeg" alt="Foto 16"><div class="photo-caption">Por más fotos juntos 🥂</div></div>
+            <div class="photo-card"><img src="foto17.jpeg" alt="Foto 17"><div class="photo-caption">JIJIJJII ❤️</div></div>
         </div>
 
         <!-- CARTA PERSONALIZADA -->
@@ -540,29 +501,47 @@
         </div>
 
         <footer>
-            Echo para la mujer mas bonita y hermosa
+            Hecho con ❤️ especialmente para ti | Pink Tulips Night
         </footer>
     </div>
 
+    <!-- CARGA DE API DE YOUTUBE -->
+    <script src="https://www.youtube.com/iframe_api"></script>
     <script>
+        let player;
         let isPlaying = false;
 
-        // Entrar a la experiencia e iniciar canción desde YouTube
+        // Cargar el reproductor mediante la API oficial de YouTube
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('youtube-player', {
+                height: '200',
+                width: '200',
+                videoId: 'edvms0RSum4',
+                playerVars: {
+                    'autoplay': 0,
+                    'controls': 0,
+                    'loop': 1,
+                    'playlist': 'edvms0RSum4'
+                }
+            });
+        }
+
+        // Iniciar experiencia e iniciar reproducción al presionar el botón
         function startExperience() {
             document.getElementById('intro-overlay').classList.add('fade-out');
-            
-            const iframe = document.getElementById('bg-music');
-            iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
-            isPlaying = true;
+            if (player && typeof player.playVideo === 'function') {
+                player.playVideo();
+                isPlaying = true;
+            }
         }
 
         function toggleMusic() {
-            const iframe = document.getElementById('bg-music');
+            if (!player) return;
             if (isPlaying) {
-                iframe.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+                player.pauseVideo();
                 isPlaying = false;
             } else {
-                iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+                player.playVideo();
                 isPlaying = true;
             }
         }
@@ -583,7 +562,6 @@
             resultDiv.innerHTML = `${yourName} & ${boyfriendName} <br><span style="font-size: 2rem; font-family: 'Caveat', cursive; color: #ffffff;">Juntos por siempre ❤️</span>`;
             resultDiv.style.display = 'block';
 
-            // Efecto de lluvia de confeti
             confetti({
                 particleCount: 100,
                 spread: 70,
