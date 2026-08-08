@@ -33,24 +33,23 @@
             padding-bottom: 50px;
         }
 
-        /* Floating Hearts Background */
-        .heart-particle {
+        /* Floating Hello Kitty Particles */
+        .kitty-particle {
             position: fixed;
-            color: var(--secondary);
-            font-size: 1.2rem;
-            animation: floatUp 8s linear infinite;
-            opacity: 0.6;
+            bottom: -50px;
+            user-select: none;
             pointer-events: none;
             z-index: 0;
+            animation: floatUp linear infinite;
         }
 
         @keyframes floatUp {
             0% {
-                transform: translateY(100vh) scale(0.8) rotate(0deg);
-                opacity: 0.8;
+                transform: translateY(0) rotate(0deg);
+                opacity: 0.9;
             }
             100% {
-                transform: translateY(-10vh) scale(1.2) rotate(360deg);
+                transform: translateY(-110vh) rotate(360deg);
                 opacity: 0;
             }
         }
@@ -125,29 +124,6 @@
         .time-box label {
             font-size: 0.8rem;
             color: #888;
-        }
-
-        /* Music Card */
-        .music-card {
-            background: var(--card-bg);
-            border-radius: 20px;
-            padding: 20px;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(255, 75, 114, 0.15);
-            margin-bottom: 25px;
-            border: 1px solid rgba(255, 133, 161, 0.3);
-        }
-
-        .music-card p {
-            font-weight: 600;
-            margin-bottom: 12px;
-            color: var(--primary);
-        }
-
-        audio {
-            width: 100%;
-            max-width: 400px;
-            outline: none;
         }
 
         /* Photo Gallery */
@@ -261,40 +237,23 @@
 </head>
 <body>
 
-    <!-- Dynamic background hearts -->
-    <div id="hearts-container"></div>
+    <!-- Dynamic Hello Kitty Container -->
+    <div id="kitty-container"></div>
+
+    <!-- Music Player -->
+    <audio id="bg-music" autoplay loop style="display:none;">
+        <source src="musica.mp3" type="audio/mpeg">
+    </audio>
+
+    <button onclick="toggleMusic()" id="music-btn" style="position: fixed; top: 15px; right: 15px; z-index: 1000; padding: 10px 15px; border-radius: 20px; border: none; background: #ff85a1; color: white; cursor: pointer; font-weight: bold; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
+        🎵 Música: ON/OFF
+    </button>
 
     <div class="container">
         <header>
             <h1>Para el amor de mi vida ❤️</h1>
             <p>Un pequeño rincón en internet hecho con todo mi amor solo para ti.</p>
         </header>
-
-        <!-- Music Player -->
-        <audio id="bg-music" autoplay loop style="display:none;">
-    <source src="musica.mp3" type="audio/mpeg">
-</audio>
-
-<!-- Botón opcional para activar/pausar la música si el navegador la bloquea -->
-<button onclick="toggleMusic()" id="music-btn" style="position: fixed; top: 15px; right: 15px; z-index: 1000; padding: 10px 15px; border-radius: 20px; border: none; background: #ffb6c1; color: white; cursor: pointer; font-weight: bold; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
-    🎵 Música: ON/OFF
-</button>
-
-<script>
-    const music = document.getElementById('bg-music');
-    // Para reproducir la música automáticamente tras la primera interacción
-    document.addEventListener('click', function() {
-        music.play();
-    }, { once: true });
-
-    function toggleMusic() {
-        if (music.paused) {
-            music.play();
-        } else {
-            music.pause();
-        }
-    }
-</script>
 
         <!-- Timer -->
         <div class="counter-card">
@@ -308,7 +267,6 @@
         </div>
 
         <!-- Gallery -->
-       <!-- Galería de Fotos (17 fotos) -->
         <h2 class="section-title">Fotos📸</h2>
         <div class="gallery">
             <div class="photo-card">
@@ -376,6 +334,7 @@
                 <div class="photo-caption">JIJIJJII ❤️</div>
             </div>
         </div>
+
         <!-- Interactive Letter -->
         <div class="letter-container">
             <button class="btn" onclick="openLetter()">💌 Haz clic aquí para leer una sorpresa</button>
@@ -397,9 +356,22 @@
     </div>
 
     <script>
-        // 1. FECHA DE INICIO DE LA RELACIÓN (Año, Mes-1, Día)
-        // Nota: En JavaScript los meses van de 0 a 11 (Enero = 0, Diciembre = 11)
-        const startDate = new Date(2023, 0, 15); // Ejemplo: 15 de Enero de 2023
+        // Reproducción de música al primer clic del usuario
+        const music = document.getElementById('bg-music');
+        document.addEventListener('click', function() {
+            music.play();
+        }, { once: true });
+
+        function toggleMusic() {
+            if (music.paused) {
+                music.play();
+            } else {
+                music.pause();
+            }
+        }
+
+        // 1. FECHA DE INICIO DE LA RELACIÓN
+        const startDate = new Date(2023, 0, 15);
 
         function updateTimer() {
             const now = new Date();
@@ -419,7 +391,7 @@
         setInterval(updateTimer, 1000);
         updateTimer();
 
-        // 2. ABRIR CARTA Y EFECTO CONFETI DE CORAZONES
+        // 2. ABRIR CARTA Y EFECTO CONFETI
         function openLetter() {
             const letter = document.getElementById('letter');
             if (letter.style.display === 'block') {
@@ -427,7 +399,6 @@
             } else {
                 letter.style.display = 'block';
                 
-                // Lanza confeti de corazones
                 confetti({
                     particleCount: 80,
                     spread: 70,
@@ -437,24 +408,27 @@
             }
         }
 
-        // 3. GENERAR CORAZONES FLOTANTES DE FONDO
-        function createHearts() {
-            const container = document.getElementById('hearts-container');
-            const heart = document.createElement('div');
-            heart.classList.add('heart-particle');
-            heart.innerHTML = '❤️';
-            heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.animationDuration = (Math.random() * 3 + 5) + 's';
-            heart.style.fontSize = (Math.random() * 10 + 15) + 'px';
+        // 3. GENERAR HELLO KITTY FLOTANTES
+        function createHelloKitty() {
+            const container = document.getElementById('kitty-container');
+            const kitty = document.createElement('div');
+            kitty.classList.add('kitty-particle');
             
-            container.appendChild(heart);
+            const items = ['🐱', '🎀', '🌸', '💖', '🧸', '✨'];
+            kitty.innerText = items[Math.floor(Math.random() * items.length)];
+            
+            kitty.style.left = Math.random() * 100 + 'vw';
+            kitty.style.animationDuration = (Math.random() * 3 + 5) + 's';
+            kitty.style.fontSize = (Math.random() * 15 + 20) + 'px';
+            
+            container.appendChild(kitty);
 
             setTimeout(() => {
-                heart.remove();
+                kitty.remove();
             }, 8000);
         }
 
-        setInterval(createHearts, 500);
+        setInterval(createHelloKitty, 400);
     </script>
 </body>
 </html>
