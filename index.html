@@ -33,72 +33,37 @@
             padding-bottom: 50px;
         }
 
-        /* ----- PANTALLA DE INTRO CON AMAPOLAS ----- */
-        #poppy-intro {
+        /* ----- PANTALLA DE INTRO FLOWER BLOOM (TULIPÁN) ----- */
+        #tulip-intro {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            background-color: #1a0508;
+            background-color: #1a050d;
             z-index: 9999;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
             transition: opacity 1.2s ease, visibility 1.2s ease;
             overflow: hidden;
         }
 
-        .poppy-curtain {
-            position: absolute;
-            top: 0;
-            width: 50vw;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: radial-gradient(circle, #2d0a10 0%, #1a0508 100%);
-            transition: transform 1.5s cubic-bezier(0.77, 0, 0.175, 1);
-            z-index: 1;
-        }
-
-        .poppy-left {
-            left: 0;
-            border-right: 2px solid rgba(230, 57, 70, 0.3);
-        }
-
-        .poppy-right {
-            right: 0;
-            border-left: 2px solid rgba(230, 57, 70, 0.3);
-        }
-
-        /* SVG Amapolas */
-        .poppy-flower {
-            width: 180px;
-            height: 180px;
-            filter: drop-shadow(0 0 15px rgba(230, 57, 70, 0.6));
-            animation: pulsePoppy 2s infinite alternate ease-in-out;
-        }
-
-        @keyframes pulsePoppy {
-            0% { transform: scale(0.98); }
-            100% { transform: scale(1.05); }
-        }
-
+        /* Bloque Central de la Intro */
         .intro-content {
             position: relative;
             z-index: 10;
             text-align: center;
             color: #ffffff;
             padding: 20px;
+            transition: opacity 0.6s ease;
         }
 
         .intro-title {
             font-family: 'Dancing Script', cursive;
             font-size: 3.2rem;
-            color: #ff4b72;
-            text-shadow: 0 0 12px rgba(255, 75, 114, 0.6);
+            color: #ff85a1;
+            text-shadow: 0 0 15px rgba(255, 133, 161, 0.6);
             margin-bottom: 15px;
         }
 
@@ -109,7 +74,7 @@
         }
 
         .open-btn {
-            background: linear-gradient(45deg, #e63946, #ff4b72);
+            background: linear-gradient(45deg, #ff4b72, #ff85a1);
             color: white;
             border: none;
             padding: 16px 36px;
@@ -117,30 +82,46 @@
             border-radius: 50px;
             cursor: pointer;
             font-weight: 600;
-            box-shadow: 0 0 20px rgba(230, 57, 70, 0.5);
+            box-shadow: 0 0 20px rgba(255, 75, 114, 0.6);
             transition: all 0.3s ease;
         }
 
         .open-btn:hover {
             transform: scale(1.08);
-            box-shadow: 0 0 30px rgba(230, 57, 70, 0.8);
+            box-shadow: 0 0 30px rgba(255, 75, 114, 0.9);
         }
 
-        /* Animación al abrir */
-        #poppy-intro.open .poppy-left {
-            transform: translateX(-100%);
+        /* Pétalos de Tulipán Floreciendo (Flower Bloom) */
+        .bloom-petal {
+            position: absolute;
+            width: 70vw;
+            height: 70vh;
+            background: radial-gradient(circle, #ff4b72 0%, #b7094c 100%);
+            border-radius: 50% 50% 0 50%;
+            transition: transform 1.8s cubic-bezier(0.77, 0, 0.175, 1), opacity 1.5s ease;
+            z-index: 5;
+            opacity: 0.95;
+            box-shadow: inset 0 0 30px rgba(0,0,0,0.3);
         }
 
-        #poppy-intro.open .poppy-right {
-            transform: translateX(100%);
-        }
+        /* Posiciones iniciales formando el botón de tulipán */
+        .petal-1 { top: -20vh; left: -20vw; transform: rotate(45deg); }
+        .petal-2 { top: -20vh; right: -20vw; transform: rotate(135deg); }
+        .petal-3 { bottom: -20vh; left: -20vw; transform: rotate(-45deg); }
+        .petal-4 { bottom: -20vh; right: -20vw; transform: rotate(-135deg); }
 
-        #poppy-intro.open .intro-content {
+        /* Animación de apertura "Flower Bloom" */
+        #tulip-intro.open .petal-1 { transform: translate(-80vw, -80vh) rotate(0deg) scale(0.5); opacity: 0; }
+        #tulip-intro.open .petal-2 { transform: translate(80vw, -80vh) rotate(180deg) scale(0.5); opacity: 0; }
+        #tulip-intro.open .petal-3 { transform: translate(-80vw, 80vh) rotate(-90deg) scale(0.5); opacity: 0; }
+        #tulip-intro.open .petal-4 { transform: translate(80vw, 80vh) rotate(90deg) scale(0.5); opacity: 0; }
+
+        #tulip-intro.open .intro-content {
             opacity: 0;
-            transition: opacity 0.5s ease;
+            pointer-events: none;
         }
 
-        #poppy-intro.open {
+        #tulip-intro.open {
             opacity: 0;
             visibility: hidden;
             pointer-events: none;
@@ -342,7 +323,6 @@
         @media (max-width: 600px) {
             header h1 { font-size: 2.8rem; }
             .intro-title { font-size: 2.4rem; }
-            .poppy-flower { width: 130px; height: 130px; }
             .timer { gap: 8px; }
             .time-box { min-width: 65px; padding: 10px; }
             .time-box span { font-size: 1.3rem; }
@@ -351,31 +331,17 @@
 </head>
 <body>
 
-    <!-- PANTALLA INTRODUCCIÓN CON AMAPOLAS -->
-    <div id="poppy-intro">
-        <div class="poppy-curtain poppy-left">
-            <svg class="poppy-flower" viewBox="0 0 100 100">
-                <path d="M50 50 C30 20, 10 35, 20 60 C30 80, 50 75, 50 50 Z" fill="#e63946"/>
-                <path d="M50 50 C70 20, 90 35, 80 60 C70 80, 50 75, 50 50 Z" fill="#d62828"/>
-                <path d="M50 50 C20 40, 30 80, 50 85 C70 80, 80 40, 50 50 Z" fill="#b7094c"/>
-                <circle cx="50" cy="55" r="10" fill="#1d3557"/>
-                <circle cx="50" cy="55" r="6" fill="#000000"/>
-            </svg>
-        </div>
-        <div class="poppy-curtain poppy-right">
-            <svg class="poppy-flower" viewBox="0 0 100 100">
-                <path d="M50 50 C30 20, 10 35, 20 60 C30 80, 50 75, 50 50 Z" fill="#e63946"/>
-                <path d="M50 50 C70 20, 90 35, 80 60 C70 80, 50 75, 50 50 Z" fill="#d62828"/>
-                <path d="M50 50 C20 40, 30 80, 50 85 C70 80, 80 40, 50 50 Z" fill="#b7094c"/>
-                <circle cx="50" cy="55" r="10" fill="#1d3557"/>
-                <circle cx="50" cy="55" r="6" fill="#000000"/>
-            </svg>
-        </div>
+    <!-- INTRO INTELIGENTE ESTILO FLOWER BLOOM (TULIPANES) -->
+    <div id="tulip-intro">
+        <div class="bloom-petal petal-1"></div>
+        <div class="bloom-petal petal-2"></div>
+        <div class="bloom-petal petal-3"></div>
+        <div class="bloom-petal petal-4"></div>
         
         <div class="intro-content">
             <h1 class="intro-title">Para mi persona favorita ❤️</h1>
             <p class="intro-subtitle">Tengo una pequeña sorpresa guardada para ti...</p>
-            <button class="open-btn" onclick="openPage()">🌺 Abrir regalo</button>
+            <button class="open-btn" onclick="openPage()">🌷 Abrir regalo</button>
         </div>
     </div>
 
@@ -420,7 +386,7 @@
                 <div class="photo-caption">Algo relax 💕</div>
             </div>
             <div class="photo-card">
-                <img src="foto3.jpeg" alt="Foto 3">
+                <img src="photo3.jpeg" alt="Foto 3">
                 <div class="photo-caption">Momento divertido 😊</div>
             </div>
             <div class="photo-card">
@@ -500,9 +466,9 @@
     <script>
         const music = document.getElementById('bg-music');
 
-        // Función para abrir las amapolas e iniciar la música
+        // Función para florecer pétalos e iniciar la música
         function openPage() {
-            document.getElementById('poppy-intro').classList.add('open');
+            document.getElementById('tulip-intro').classList.add('open');
             music.play().catch(() => {});
         }
 
@@ -558,7 +524,7 @@
             const kitty = document.createElement('div');
             kitty.classList.add('kitty-particle');
             
-            const items = ['🐱', '🎀', '🌸', '💖', '🧸', '✨'];
+            const items = ['🐱', '🎀', '🌸', '💖', '🧸', '✨', '🌷'];
             kitty.innerText = items[Math.floor(Math.random() * items.length)];
             
             kitty.style.left = Math.random() * 100 + 'vw';
