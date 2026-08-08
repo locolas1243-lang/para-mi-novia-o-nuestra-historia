@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Para ti mi persona favorita ❤️</title>
+    <title>Para ti Yorleidis ❤️</title>
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Caveat:wght@600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
@@ -189,6 +189,70 @@
             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
         }
 
+        /* SECCION NOMBRES */
+        .names-section {
+            text-align: center;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-width: 400px;
+            margin: 20px auto 0 auto;
+        }
+
+        .input-group input {
+            padding: 14px 20px;
+            border-radius: 30px;
+            border: 1px solid var(--glass-border);
+            background: rgba(0, 0, 0, 0.4);
+            color: #fff;
+            font-size: 1rem;
+            outline: none;
+            text-align: center;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .input-group input::placeholder {
+            color: #c9a8d4;
+        }
+
+        .input-group input:focus {
+            border-color: var(--pink-light);
+            box-shadow: 0 0 15px rgba(255, 183, 197, 0.4);
+        }
+
+        .btn-submit {
+            background: linear-gradient(45deg, var(--pink-glow), var(--pink-dark));
+            color: white;
+            border: 1px solid var(--pink-light);
+            padding: 12px 30px;
+            font-size: 1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 500;
+            margin-top: 10px;
+            box-shadow: 0 0 15px rgba(255, 117, 140, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .btn-submit:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(255, 183, 197, 0.7);
+        }
+
+        .names-result {
+            display: none;
+            margin-top: 20px;
+            font-family: 'Alex Brush', cursive;
+            font-size: 3rem;
+            color: var(--pink-light);
+            text-shadow: 0 0 15px var(--pink-glow);
+            animation: fadeIn 1s ease;
+        }
+
         /* CONTADOR */
         .counter-title {
             font-family: 'Caveat', cursive;
@@ -329,6 +393,7 @@
             .intro-title { font-size: 2.8rem; }
             .time-box { min-width: 70px; padding: 10px; }
             .time-box span { font-size: 1.4rem; }
+            .names-result { font-size: 2.2rem; }
         }
     </style>
 </head>
@@ -352,9 +417,9 @@
         <button class="btn-bloom" onclick="startExperience()">🌷 Entrar a nuestro lugar</button>
     </div>
 
-    <!-- REPRODUCTOR DE YOUTUBE INVISIBLE (Love Songs - Kaash Paige) -->
+    <!-- REPRODUCTOR DE YOUTUBE INVISIBLE (Love Songs - https://www.youtube.com/watch?v=edvms0RSum4) -->
     <iframe id="bg-music" style="display:none;" width="1" height="1" 
-        src="https://www.youtube.com/embed/a7ms3r-qt0E?enablejsapi=1&autoplay=0&loop=1&playlist=a7ms3r-qt0E" 
+        src="https://www.youtube.com/embed/edvms0RSum4?enablejsapi=1&autoplay=0&loop=1&playlist=edvms0RSum4" 
         allow="autoplay">
     </iframe>
 
@@ -367,6 +432,17 @@
             <h1>Para el amor de mi vida ❤️</h1>
             <p>Un pequeño rincón bajo las estrellas hecho solo para ti.</p>
         </header>
+
+        <!-- SECCIÓN DE NOMBRES -->
+        <div class="glass-card names-section">
+            <h2 class="counter-title">Escribe nuestros nombres ✨</h2>
+            <div class="input-group" id="input-container">
+                <input type="text" id="yourName" placeholder="Escribe tu nombre">
+                <input type="text" id="boyfriendName" placeholder="Escribe el nombre de tu novio">
+                <button class="btn-submit" onclick="generateNames()">Listo 💕</button>
+            </div>
+            <div class="names-result" id="names-result"></div>
+        </div>
 
         <!-- CONTADOR DE TIEMPO -->
         <div class="glass-card">
@@ -464,7 +540,7 @@
         </div>
 
         <footer>
-            Hecho con ❤️ especialmente para ti | Pink Tulips Night
+            Echo para la mujer mas bonita y hermosa
         </footer>
     </div>
 
@@ -489,6 +565,31 @@
                 iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
                 isPlaying = true;
             }
+        }
+
+        // MOSTRAR MENSAJE DE NOMBRES JUNTOS
+        function generateNames() {
+            const yourName = document.getElementById('yourName').value.trim();
+            const boyfriendName = document.getElementById('boyfriendName').value.trim();
+            const resultDiv = document.getElementById('names-result');
+            const inputContainer = document.getElementById('input-container');
+
+            if (yourName === '' || boyfriendName === '') {
+                alert('Por favor escribe ambos nombres ❤️');
+                return;
+            }
+
+            inputContainer.style.display = 'none';
+            resultDiv.innerHTML = `${yourName} & ${boyfriendName} <br><span style="font-size: 2rem; font-family: 'Caveat', cursive; color: #ffffff;">Juntos por siempre ❤️</span>`;
+            resultDiv.style.display = 'block';
+
+            // Efecto de lluvia de confeti
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: ['#ff758c', '#ffb7c5', '#ffffff', '#ff4b72']
+            });
         }
 
         // GENERADOR DE ESTRELLAS DE FONDO
