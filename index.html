@@ -271,14 +271,30 @@
         </header>
 
         <!-- Music Player -->
-        <div class="music-card">
-            <p>🎵 Nuestra Canción Especial</p>
-            <!-- Puedes reemplazar 'musica.mp3' por tu archivo o enlace de audio -->
-            <audio controls id="audio-player">
-                <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
-                Tu navegador no soporta el reproductor de audio.
-            </audio>
-        </div>
+        <audio id="bg-music" autoplay loop style="display:none;">
+    <source src="musica.mp3" type="audio/mpeg">
+</audio>
+
+<!-- Botón opcional para activar/pausar la música si el navegador la bloquea -->
+<button onclick="toggleMusic()" id="music-btn" style="position: fixed; top: 15px; right: 15px; z-index: 1000; padding: 10px 15px; border-radius: 20px; border: none; background: #ffb6c1; color: white; cursor: pointer; font-weight: bold; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
+    🎵 Música: ON/OFF
+</button>
+
+<script>
+    const music = document.getElementById('bg-music');
+    // Para reproducir la música automáticamente tras la primera interacción
+    document.addEventListener('click', function() {
+        music.play();
+    }, { once: true });
+
+    function toggleMusic() {
+        if (music.paused) {
+            music.play();
+        } else {
+            music.pause();
+        }
+    }
+</script>
 
         <!-- Timer -->
         <div class="counter-card">
