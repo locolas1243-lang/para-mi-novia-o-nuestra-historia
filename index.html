@@ -241,19 +241,44 @@
     <div id="kitty-container"></div>
 
     <!-- Music Player -->
-    <audio id="bg-music" autoplay loop style="display:none;">
-        <source src="musica.mp3" type="audio/mpeg">
-    </audio>
+  <!-- Reproductor de Música de Fondo -->
+<audio id="bg-music" loop preload="auto">
+    <source src="musica.mp3" type="audio/mpeg">
+</audio>
 
-    <button onclick="toggleMusic()" id="music-btn" style="position: fixed; top: 15px; right: 15px; z-index: 1000; padding: 10px 15px; border-radius: 20px; border: none; background: #ff85a1; color: white; cursor: pointer; font-weight: bold; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
-        🎵 Música: ON/OFF
-    </button>
+<button onclick="toggleMusic()" id="music-btn" style="position: fixed; top: 15px; right: 15px; z-index: 1000; padding: 10px 15px; border-radius: 20px; border: none; background: #ff85a1; color: white; cursor: pointer; font-weight: bold; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
+    🎵 Música: ON/OFF
+</button>
 
-    <div class="container">
-        <header>
-            <h1>Para el amor de mi vida ❤️</h1>
-            <p>Un pequeño rincón en internet hecho con todo mi amor solo para ti.</p>
-        </header>
+<script>
+    const music = document.getElementById('bg-music');
+
+    function startAudio() {
+        music.play().then(() => {
+            // Remueve los escuchadores una vez que empieza a sonar
+            ['click', 'touchstart', 'mousemove', 'scroll'].forEach(evt => 
+                document.removeEventListener(evt, startAudio)
+            );
+        }).catch(() => {});
+    }
+
+    // Intenta sonar de inmediato y, si el navegador lo frena, activa con el primer gesto/movimiento
+    window.addEventListener('load', () => {
+        music.play().catch(() => {
+            ['click', 'touchstart', 'mousemove', 'scroll'].forEach(evt => 
+                document.addEventListener(evt, startAudio, { once: true })
+            );
+        });
+    });
+
+    function toggleMusic() {
+        if (music.paused) {
+            music.play();
+        } else {
+            music.pause();
+        }
+    }
+</script>
 
         <!-- Timer -->
         <div class="counter-card">
@@ -367,7 +392,7 @@
         }
 
         // 1. FECHA DE INICIO DE LA RELACIÓN
-        const startDate = new Date(2023, 0, 15);
+        const startDate = new Date(2024, 5, 8);
 
         function updateTimer() {
             const now = new Date();
